@@ -14,8 +14,8 @@ class TodoApp extends StatelessWidget {
           seedColor: const Color(0xFFFF9900),
           primary: const Color(0xFFFF9900),
           background: const Color(0xFFEDEDED),
+          surface: Colors.white,
         ),
-
         textTheme: TextTheme(
           headlineSmall: GoogleFonts.montserrat(
             fontSize: 24,

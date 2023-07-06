@@ -22,11 +22,32 @@ class _TodoListPageState extends State<TodoListPage> {
           style: themeData.textTheme.headlineSmall,
         ),
       ),
-      body: ListView.builder(
-        itemCount: _todos.length,
-        itemBuilder: (context, index) {
-          return Text(_todos[index]);
-        },
+      body: SafeArea(
+        top: false,
+        child: Card(
+          margin: const EdgeInsets.symmetric(
+            horizontal: 17,
+            vertical: 5,
+          ),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(
+                20,
+              ),
+            ),
+          ),
+          child: ListView.builder(
+            itemCount: _todos.length,
+            itemBuilder: (context, index) {
+              return CheckboxListTile(
+                controlAffinity: ListTileControlAffinity.leading,
+                value: false,
+                onChanged: (_) {},
+                title: Text(_todos[index]),
+              );
+            },
+          ),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
