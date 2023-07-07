@@ -1,3 +1,4 @@
+import 'package:fittin_todo/models/todo_model.dart';
 import 'package:flutter/material.dart';
 
 class TodoListPage extends StatefulWidget {
@@ -8,7 +9,7 @@ class TodoListPage extends StatefulWidget {
 }
 
 class _TodoListPageState extends State<TodoListPage> {
-  final List<String> _todos = [];
+  final List<TodoModel> _todos = [];
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class _TodoListPageState extends State<TodoListPage> {
         centerTitle: true,
         title: Text(
           'Мои дела',
-          style: themeData.textTheme.headlineSmall,
+          style: themeData.textTheme.headlineSmall?.copyWith(),
         ),
       ),
       body: SafeArea(
@@ -41,9 +42,16 @@ class _TodoListPageState extends State<TodoListPage> {
             itemBuilder: (context, index) {
               return CheckboxListTile(
                 controlAffinity: ListTileControlAffinity.leading,
-                value: false,
-                onChanged: (_) {},
-                title: Text(_todos[index]),
+                value: _todos[index].done,
+                onChanged: (value) {
+                  final checked = value ?? false;
+                  setState(() {
+                    _todos[index] = _todos[index].copyWith(
+                      done: checked,
+                    );
+                  });
+                },
+                title: Text(_todos[index].text),
               );
             },
           ),
@@ -51,9 +59,15 @@ class _TodoListPageState extends State<TodoListPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          setState(() {
-            _todos.add('data');
-          });
+          setState(
+            () {
+              _todos.add(
+                TodoModel(
+                  text: 'data',
+                ),
+              );
+            },
+          );
         },
         child: const Icon(Icons.add),
       ),
