@@ -1,35 +1,18 @@
-class TodoModel {
-  final String text;
-  final DateTime? deadline;
-  final bool done;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  TodoModel({
-    required this.text,
-    this.deadline,
-    this.done = false,
-  });
+part 'todo_model.freezed.dart';
 
-  TodoModel copyWith({
-    String? text,
+part 'todo_model.g.dart';
+
+@freezed
+class TodoModel with _$TodoModel {
+  const factory TodoModel({
+    String? id,
+    required String text,
     DateTime? deadline,
-    bool? done,
-  }) {
-    return TodoModel(
-      text: text ?? this.text,
-      deadline: deadline ?? this.deadline,
-      done: done ?? this.done,
-    );
-  }
+    @Default(false) bool done,
+  }) = _TodoModel;
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is TodoModel &&
-          runtimeType == other.runtimeType &&
-          text == other.text &&
-          deadline == other.deadline &&
-          done == other.done;
-
-  @override
-  int get hashCode => text.hashCode ^ deadline.hashCode ^ done.hashCode;
+  factory TodoModel.fromJson(Map<String, dynamic> json) =>
+      _$TodoModelFromJson(json);
 }
